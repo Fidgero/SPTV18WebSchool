@@ -14,7 +14,7 @@
     <body>
         <h1>Список журналов</h1>
         <c:forEach var="journal" items="${listJournals}">
-            <li>${journal.person}. ${journal.subject}}. ${journal.mark}</li>
+            <li>${journal.person} ${journal.subject} ${journal.mark}</li>
         </c:forEach>
     </body>
 </html>

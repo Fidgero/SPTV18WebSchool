@@ -117,7 +117,7 @@ public class AdminServlet extends HttpServlet {
                 request.getRequestDispatcher("/showNewJournal.jsp")
                         .forward(request, response);
                     break;
-                case "/addJournal":
+                /*case "/addJournal":
                 String personId = request.getParameter("personId");
                 String subjectId = request.getParameter("subjectId");
                 if(personId == null || "".equals(personId)
@@ -128,78 +128,39 @@ public class AdminServlet extends HttpServlet {
                 }
                 request.getRequestDispatcher("/index")
                             .forward(request, response);
-                    break;
-                /*case "/showNewJournal":
-                List<Subject> listSubjects = subjectFacade.findAll();
-                List<Person> listPersons = personFacade.findAll();
-                request.setAttribute("listSubjects", listSubjects);
-                request.setAttribute("listPersons", listPersons);
-                request.getRequestDispatcher("/showNewJournal.jsp")
-                        .forward(request, response);
-                break;*/
-                /*case "/showNewJournal":
-                String person = request.getParameter("person");
-                String subject = request.getParameter("subject");
-                if(readerId == null || "".equals(readerId)
-                        || bookId == null || "".equals(bookId)){
-                    request.setAttribute("readerId", readerId);
-                    request.setAttribute("bookId", bookId);
-                    request.setAttribute("info", "Выберите и читателя и книгу");
-                    request.getRequestDispatcher("/showTakeBook")
+                    break;*/
+                case "/addJournal":
+                    String personId = request.getParameter("personId");
+                    String subjectId = request.getParameter("subjectId");
+                    String mark = request.getParameter("mark");
+                    if(personId == null || "".equals(personId)
+                         ||subjectId == null || "".equals(subjectId)
+                         ||mark == null || "".equals(mark)){
+                    request.setAttribute("personid", personId);
+                    request.setAttribute("subjectid", subjectId);
+                    request.setAttribute("mark", mark);
+                    request.setAttribute("info", "Выберите и ученика и предмет");
+                    request.getRequestDispatcher("/showNewJournal")
                             .forward(request, response);
                 }
-                reader = readerFacade.find(Long.parseLong(readerId));
-                book = bookFacade.find(Long.parseLong(bookId));
-                Calendar c = Calendar.getInstance();
-                if(book.getBookNum()-1 >= 0){
-                    History history = new History(book, reader, c.getTime(), null);
-                    book.setBookNum(book.getBookNum()-1);
-                    bookFacade.edit(book);
-                    historyFacade.create(history);
-                    request.setAttribute("info", "Читателю "
-                                            + reader.getFirstname()
+                person = personFacade.find(Long.parseLong(personId));
+                subject = subjectFacade.find(Long.parseLong(subjectId));
+                    Journal journal = new Journal(mark, person, subject);
+                    journalFacade.create(journal);
+                    request.setAttribute("info", "Ученику "
+                                            + person.getFirstName()
                                             + " "
-                                            + reader.getLastname()
-                                            + " выдана книга: "
-                                            + book.getTitle()
+                                            + person.getSecondName()
+                                            + " по предмету"
+                                            + subject.getSubjectName()
+                                            + " была поставлена оценка"
+                                            + journal.getMark()
                                     );
-                }else{
-                    request.setAttribute("info", "Нет в наличии данной книги");
-                }
+
                 request.getRequestDispatcher("/index")
                             .forward(request, response);
                 break;
-                case "/showReturnBook":
-                    List<History> listHistories = historyFacade.findByReturnNull();
-                    request.setAttribute("listHistories", listHistories);
-                    request.getRequestDispatcher("/showReturnBook.jsp")
-                    .forward(request, response);
-                break;
-                case "/returnBook":
-                    String historyId = request.getParameter("historyId");
-                    if(historyId == null || "".equals(historyId)){
-                        request.setAttribute("info", "Выберите книгу!");
-                        request.getRequestDispatcher("/showReturnBook.jsp")
-                        .forward(request, response);
-                break;
-                }
-                History history = historyFacade.find(Long.parseLong(historyId));
-                book = history.getBook();
-                boolean isNotReturnBook = book.getQuantity() <= book.getBookNum()+1;
-                if(!isNotReturnBook){
-                request.setAttribute("info", "Все книги с таким названием уже возвращены!");
-                request.getRequestDispatcher("/showReturnBook")
-                .forward(request, response);
-                break;
-                }
-                book.setBookNum(book.getBookNum()+1);
-                bookFacade.edit(book);
-                history.setReturnBook(Calendar.getInstance().getTime());
-                historyFacade.edit(history);
-                request.setAttribute("info", "Книга возвращена!");
-                request.getRequestDispatcher("/showReturnBook")
-                .forward(request, response);
-                break;*/
+                
                 
             
         }

@@ -29,6 +29,10 @@ public class Journal implements Serializable {
         this.subject = subject;
     }
 
+    public Journal(String mark, Person person, Subject subject) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Long getId() {
         return id;
     }

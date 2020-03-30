@@ -81,36 +81,6 @@ public class LoginServlet extends HttpServlet {
                     request.getRequestDispatcher("/listJournals.jsp")
                             .forward(request, response);
                     break;
-                /*case "/login":
-                    String login = request.getParameter("login");
-                    String password = request.getParameter("password");
-                    User user = userFacade.findByLogin(login);
-                    if(user == null){
-                        request.setAttribute("info", "нет такого пользователя или неправельный пароль");
-                        request.getRequestDispatcher("/showLogin")
-                                .forward(request, response);
-                    }
-                    if(!password.equals(user.getPassword())){
-                        request.setAttribute("info", "нет такого пользователя или неправельный пароль");
-                        request.getRequestDispatcher("/showLogin")
-                                .forward(request, response);
-                    }
-                    HttpSession session = request.getSession(true);
-                    session.setAttribute("user", user);
-                    session.setAttribute("info", "Привет "+user.getPerson().getFirstame());
-                    
-                    request.getRequestDispatcher("/index")
-                            .forward(request, response);
-                    break;
-                case"/logout":
-                    session = request.getSession(false);
-                    if(session != null){
-                        session.invalidate();
-                    }
-                    request.setAttribute("info", "Вы вышли");
-                    request.getRequestDispatcher("/index")
-                            .forward(request, response);
-                    break;*/
                 default:
                     break;
             }
